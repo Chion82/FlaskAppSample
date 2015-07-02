@@ -88,13 +88,20 @@ gulp.task('bundle', function(){
 	}
 });
 
-gulp.task('update_all', function(){
+gulp.task('update_all_debug', function(){
 	gulp.start('update_dependencies','update_templates', 'update_scripts', 'compile_less', 'update_assets');
-	setTimeout(function(){
+	/*setTimeout(function(){
 		gulp.start('bundle');
-	},1000);
+	},1000);*/
 });
 
+gulp.task('dist', function(){
+	gulp.start('update_all_debug');
+	setTimeout(function(){
+		gulp.start('bundle');
+	},3000);
+})
+
 gulp.task('watch',function(){
-	gulp.watch(['**/*.*','!'+ app_name +'/**/*.*'],['update_all']);
+	gulp.watch(['**/*.*','!'+ app_name +'/**/*.*'],['update_all_debug']);
 });

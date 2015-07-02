@@ -1,9 +1,15 @@
-from flask import Flask
-from MyWebApp.home import home_blueprint
-import os
+from MyWebApp import app, prepare
+import argparse
 
-app = Flask(__name__, static_folder='MyWebApp/public')
-app.register_blueprint(home_blueprint)
+parser = argparse.ArgumentParser()
+parser.add_argument('-d', '--debug', help='Enable debug mode.', action="store_true")
+args = parser.parse_args()
 
 if __name__ == "__main__":
-	app.run(debug=True)
+	if args.debug:
+		print('Debug mode enabled.')
+		app.config['DEBUG'] = True
+	else:
+		app.config['DEBUG'] = False
+	prepare()
+	app.run()
