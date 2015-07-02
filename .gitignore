@@ -1,0 +1,5 @@
+MyWebApp/MyWebApp/**/static
+MyWebApp/MyWebApp/**/templates
+MyWebApp/MyWebApp/public
+bower_components
+node_modules

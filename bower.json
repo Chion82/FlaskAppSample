@@ -1,0 +1,19 @@
+{
+  "name": "WebStructureSample",
+  "version": "0.0.0",
+  "authors": [
+    "Chion82 <sdspeedonion@gmail.com>"
+  ],
+  "description": "A sample project to illustrate the structure of a Flask-based web app",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "~2.1.4"
+  }
+}
