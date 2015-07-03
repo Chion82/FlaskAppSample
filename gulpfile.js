@@ -21,8 +21,10 @@ function get_directories(srcpath) {
 }
 
 gulp.task('update_dependencies', function(){
-	gulp.src('bower_components/**/*.min.js')
-		.pipe(gulp.dest(app_name + '/' + app_name + '/public/lib'));
+	gulp.src('bower_components/*/dist/**')
+		.pipe(gulp.dest(app_name + '/' + app_name + '/public'));
+	gulp.src('bower_components/requirejs/*.js')
+		.pipe(gulp.dest(app_name + '/' + app_name + '/public/requirejs'));
 });
 
 gulp.task('update_assets', function(){
@@ -35,19 +37,37 @@ gulp.task('update_assets', function(){
 });
 
 gulp.task('update_scripts', function(){
-	module_list = get_directories('src/scripts');
+	module_list = get_directories('src/components');
 	for (i in module_list) {
 		module_name = module_list[i];
-		gulp.src('src/scripts/' + module_name + '/**/*.js')
+		gulp.src('src/components/'+ module_name + '/js/*.js')
 			.pipe(gulp.dest(app_name + '/' + app_name + '/' + module_name + '/static/js/'));
+	}
+});
+gulp.task('update_modules',function(){
+	module_list = get_directories('src/modules');
+	for(i in module_list) {
+		module_name = module_list[i];
+		if(module_name==='bootstrap'){
+			gulp.src('src/modules/'+ module_name +'/dist/**')
+				.pipe(gulp.dest(app_name+ '/' + app_name + '/public/' + module_name + '/dist/'));
+			continue;
+		}
+		gulp.src('src/modules/'+ module_name +'/js/*.js')
+			.pipe(gulp.dest(app_name+ '/' + app_name + '/public/' + module_name + '/js/'));
+		gulp.src('src/modules/' + module_name + '/less/*.less')
+			.pipe(less({
+      			paths: [ 'src/less/' + module_name + '/includes' ,'src/less/includes']
+    		}))
+			.pipe(gulp.dest(app_name + '/' + app_name + '/public/' + module_name + '/css/'));
 	}
 });
 
 gulp.task('compile_less', function(){
-	module_list = get_directories('src/less');
+	module_list = get_directories('src/components');
 	for (i in module_list) {
 		module_name = module_list[i];
-		gulp.src('src/less/' + module_name + '/**/*.less')
+		gulp.src('src/components/' + module_name + '/less/*.less')
 			.pipe(less({
       			paths: [ 'src/less/' + module_name + '/includes' ,'src/less/includes']
     		}))
@@ -56,10 +76,10 @@ gulp.task('compile_less', function(){
 });
 
 gulp.task('update_templates', function(){
-	module_list = get_directories('src/templates');
+	module_list = get_directories('src/components');
 	for (i in module_list) {
 		module_name = module_list[i];
-		gulp.src('src/templates/' + module_name + '/**/*.html')
+		gulp.src('src/components/' + module_name + '/templates/*.html')
 			.pipe(gulp.dest(app_name + '/' + app_name + '/' + module_name + '/templates'));
 	}
 });
@@ -89,10 +109,14 @@ gulp.task('bundle', function(){
 });
 
 gulp.task('update_all_debug', function(){
-	gulp.start('update_dependencies','update_templates', 'update_scripts', 'compile_less', 'update_assets');
+	gulp.start('update_dependencies','update_templates', 'update_scripts', 'update_modules','compile_less', 'update_assets');
 	/*setTimeout(function(){
 		gulp.start('bundle');
 	},1000);*/
+});
+
+gulp.task('update_debug',function(){
+	gulp.start('update_templates','update_scripts','compile_less','update_modules');
 });
 
 gulp.task('dist', function(){
@@ -103,5 +127,5 @@ gulp.task('dist', function(){
 })
 
 gulp.task('watch',function(){
-	gulp.watch(['**/*.*','!'+ app_name +'/**/*.*'],['update_all_debug']);
+	gulp.watch(['**/*.*','!'+ app_name +'/**/*.*'],['update_debug']);
 });

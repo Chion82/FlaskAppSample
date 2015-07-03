@@ -5,4 +5,9 @@ import time
 @home_blueprint.route('/')
 def index():
 	return render_template('index.html', time=str(long(time.time())))
-
+@home_blueprint.route('/about')
+def about():
+    return render_template('about.html', about='from template render')
+@home_blueprint.route('/intro')
+def intro():
+    return render_template('intro.html')

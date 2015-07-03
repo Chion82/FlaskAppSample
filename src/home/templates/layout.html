@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="zh_CN">
+<head>
+    {% block head %}
+    <meta charset="UTF-8">
+    <title>{{title}}</title>
+    <link rel="stylesheet" href="/public/lib/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/common/static/css/common.css">
+    {% endblock %}
+</head>
+<body>
+    <div id="header">
+        {% block header %}
+        <!--子类可以直接继承header，也可以重写，不调用super()-->
+        <div class="navbar-static-top" role="banner">
+            <div class="container">
+                <div class="navbar-header">
+                    <a href="#" class="navbar-brand">Framework</a>
+                </div>
+                <div class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav">
+                        <li><a href="">item_1</a></li>
+                        <li><a href="">item_2</a></li>
+                        <li><a href="">item_3</a></li>
+                        <li><a href="">item_4</a></li>
+                        <li><a href="about">about</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        {% endblock %}
+    </div>
+    <div id="content">
+        {% block content %}
+        {% endblock %}
+    </div>
+    <div id="footer">
+        <div class="container">
+            <p>Copyright ©2015 mou.inc</p>
+            <p>All Rights Reserved.</p>
+        </div>
+    </div>
+</body>
+</html>
