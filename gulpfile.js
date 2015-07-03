@@ -21,7 +21,9 @@ function get_directories(srcpath) {
 }
 
 gulp.task('update_dependencies', function(){
-	gulp.src('bower_components/**/*.min.js')
+	gulp.src('bower_components/*/dist/**')
+		.pipe(gulp.dest(app_name + '/' + app_name + '/public/lib'));
+	gulp.src('bower_components/requirejs/*.js')
 		.pipe(gulp.dest(app_name + '/' + app_name + '/public/lib'));
 });
 
@@ -35,19 +37,19 @@ gulp.task('update_assets', function(){
 });
 
 gulp.task('update_scripts', function(){
-	module_list = get_directories('src/scripts');
+	module_list = get_directories('src');
 	for (i in module_list) {
 		module_name = module_list[i];
-		gulp.src('src/scripts/' + module_name + '/**/*.js')
+		gulp.src('src/'+ module_name + '/scripts/*.js')
 			.pipe(gulp.dest(app_name + '/' + app_name + '/' + module_name + '/static/js/'));
 	}
 });
 
 gulp.task('compile_less', function(){
-	module_list = get_directories('src/less');
+	module_list = get_directories('src');
 	for (i in module_list) {
 		module_name = module_list[i];
-		gulp.src('src/less/' + module_name + '/**/*.less')
+		gulp.src('src/' + module_name + '/less/*.less')
 			.pipe(less({
       			paths: [ 'src/less/' + module_name + '/includes' ,'src/less/includes']
     		}))
@@ -56,10 +58,10 @@ gulp.task('compile_less', function(){
 });
 
 gulp.task('update_templates', function(){
-	module_list = get_directories('src/templates');
+	module_list = get_directories('src');
 	for (i in module_list) {
 		module_name = module_list[i];
-		gulp.src('src/templates/' + module_name + '/**/*.html')
+		gulp.src('src/' + module_name + '/templates/*.html')
 			.pipe(gulp.dest(app_name + '/' + app_name + '/' + module_name + '/templates'));
 	}
 });

@@ -1,0 +1,17 @@
+{% extends 'layout.html' %} 
+{% block head %} 
+    {{super()}}
+    <link rel="stylesheet" href="/home/static/css/index.css">
+    <script type="text/javascript" data-main="/home/static/js/main" src="/public/lib/require.js"></script>
+{% endblock %} 
+{% block content %}
+<div class="jumbotron">
+    <div class="container">
+        <h1>Welcome to our framework!</h1>
+        <p>...</p>
+        <p>
+            <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
+        </p>
+    </div>
+</div>
+{% endblock %}
