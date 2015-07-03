@@ -1,0 +1,11 @@
+{% extends 'layout.html' %}
+{% block head %}
+    {{super()}}
+    <link rel="stylesheet" href="/home/static/css/about.css">
+    <script type="text/javascript" data-main="/home/static/js/main" src="/public/requirejs/require.js"></script>
+{% endblock %}
+{% block content %}
+    <h1>{{about}}</h1>
+    <h1 id="about">这里是关于！</h1>
+    <button id="add">增加内容</button>
+{% endblock %}

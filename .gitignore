@@ -1,6 +1,7 @@
 MyWebApp/MyWebApp/**/static
 MyWebApp/MyWebApp/**/templates
 MyWebApp/MyWebApp/public
+src/modules/bootstrap/node_modules
 bower_components
 node_modules
 *.pyc
